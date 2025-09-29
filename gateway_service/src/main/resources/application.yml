@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway_service
+  profiles:
+    active: ${PROFILE}
+  config:
+    import: configserver:${CONFIG_URL}

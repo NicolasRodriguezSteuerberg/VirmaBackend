@@ -1,0 +1,61 @@
+## MAC ##
+.DS_Store
+Thumbs.db
+
+# ---------------------------------
+# Archivos de compilación y dependencias
+# ---------------------------------
+/**/target/
+**/build/
+!**/gradle/wrapper/gradle-wrapper.jar
+
+# ---------------------------------
+# Configuración de IDEs
+# ---------------------------------
+# IntelliJ IDEA
+**/.idea/
+**/*.iml
+**/*.iws
+
+# Eclipse
+**/.classpath
+**/.project
+**/.settings/
+
+# NetBeans
+**/nbproject/private/
+**/nbbuild/
+**/dist/
+**/nbdist/
+*.nb-gradle/
+
+# VS Code
+.vscode/
+
+# ---------------------------------
+# Archivos de logs y temporales
+# ---------------------------------
+*.log
+*.tmp
+*.temp
+*.swp
+
+# ---------------------------------
+# Archivos del sistema
+# ---------------------------------
+.DS_Store
+Thumbs.db
+
+# ---------------------------------
+# Spring Boot
+# ---------------------------------
+spring.log
+*.jar
+*.war
+
+# ---------------------------------
+# Seguridad
+# ---------------------------------
+*.keystore
+*.jks
+.env

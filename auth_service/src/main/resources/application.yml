@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: authentication
+  config:
+    import: configserver:${CONFIG_URL}
+  profiles:
+    active: ${PROFILE}

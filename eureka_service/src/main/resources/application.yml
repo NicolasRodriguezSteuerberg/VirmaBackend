@@ -1,0 +1,9 @@
+spring:
+  application:
+    name: eureka_service
+  config:
+    import: configserver:${CONFIG_URL}
+  profiles:
+    active: ${PROFILE}
+server:
+  port: 8761

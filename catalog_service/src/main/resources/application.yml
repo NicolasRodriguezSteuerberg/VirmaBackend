@@ -1,0 +1,10 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: catalog
+  config:
+    import: configserver:${CONFIG_URL}
+  profiles:
+    active: ${PROFILE}
