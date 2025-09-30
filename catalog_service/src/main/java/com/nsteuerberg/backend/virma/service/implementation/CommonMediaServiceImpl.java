@@ -26,13 +26,13 @@ public class CommonMediaServiceImpl implements ICommonMediaService {
     }
 
     @Override
-    public boolean isUrlValid(String endpoint) {
+    public boolean isUrlValid(String endpoint, boolean isCover) {
         log.info("Verificando la url -> {}", nginxBaseUrl + endpoint);
         boolean isValid = false;
         try {
             URL parsedUrl = new URL(nginxBaseUrl + endpoint);
             // isValid = isValidServer(parsedUrl);
-            isValid = urlExists(parsedUrl);
+            isValid = urlExists(parsedUrl, isCover);
         } catch (Exception e){
             isValid = false;
             log.error("Error verificando la url: {} -> {}: {}", endpoint, e.getClass().getName(), e.getMessage());
@@ -53,15 +53,21 @@ public class CommonMediaServiceImpl implements ICommonMediaService {
         return nginxBaseUrl.equals(route);
     }
 
-    private boolean urlExists(URL url) {
+    private boolean urlExists(URL url, boolean isCover) {
         try {
             ResponseEntity<?> response = restTemplate.exchange(url.toURI(), HttpMethod.GET, null, String.class);
             if (!response.getStatusCode().is2xxSuccessful()) {
                 throw new Exception("No ha sido satisfactoria");
             }
             String headerContentType = response.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE);
-            if (headerContentType == null || !headerContentType.toLowerCase().contains("mpegurl")){
-                throw new Exception("No es un fichero correcto");
+            if (headerContentType == null){
+                if (
+                        !isCover && !headerContentType.toLowerCase().contains("mpegurl")
+                        ||
+                        isCover && !headerContentType.toLowerCase().contains("image/")
+                ) {
+                    throw new Exception("No es un fichero correcto");
+                }
             }
 
             return true;

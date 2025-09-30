@@ -1,21 +1,22 @@
 package com.nsteuerberg.backend.virma.persistance.entity;
 
+import com.nsteuerberg.backend.virma.utils.constants.ContentTypeEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 @Entity
-@Table(name = "film")
-public class FilmEntity {
+@Table(name = "content")
+@Inheritance(strategy = InheritanceType.JOINED)
+public class ContentEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,8 +24,9 @@ public class FilmEntity {
     private String description;
     @Column(name = "cover_url")
     private String coverUrl;
-    @Column(name = "file_url", nullable = false)
-    private String fileUrl;
-    @Column(name = "duration_seconds", nullable = false)
-    private Integer durationSeconds;
+    @Column(name = "release_date")
+    private LocalDate releaseDate;
+    @Column(name = "content_type")
+    @Enumerated(EnumType.STRING)
+    private ContentTypeEnum contentType;
 }

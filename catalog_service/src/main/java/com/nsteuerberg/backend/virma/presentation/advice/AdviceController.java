@@ -1,6 +1,7 @@
 package com.nsteuerberg.backend.virma.presentation.advice;
 
 import com.nsteuerberg.backend.virma.presentation.dto.exceptions.ExceptionResponse;
+import com.nsteuerberg.backend.virma.service.exceptions.ContentNotExistsException;
 import com.nsteuerberg.backend.virma.service.exceptions.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,6 +28,15 @@ public class AdviceController {
         return new ExceptionResponse(
                 "USER ALREADY EXISTS",
                 userAlreadyExistsException.getMessage()
+        );
+    }
+
+    @ExceptionHandler(ContentNotExistsException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ExceptionResponse onContentNotExists(ContentNotExistsException e){
+        return new ExceptionResponse(
+                "CONTENT NOT EXISTS",
+                e.getMessage()
         );
     }
 }
